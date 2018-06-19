@@ -11,6 +11,9 @@ import java.util.Collection;
 @Service
 public class ForecastService implements ForecastServiceInterface {
 
+
+
+
     @Autowired
     private ForecastRepository forecastRepository;
     public Collection<Forecast> getAllForecasts(){

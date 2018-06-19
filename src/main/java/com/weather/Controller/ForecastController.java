@@ -1,8 +1,13 @@
 package com.weather.Controller;
 
 import com.weather.HttpClient;
+import com.weather.Logging;
+import com.weather.Main;
 import com.weather.Model.Forecast;
+import com.weather.Service.ForecastService;
 import com.weather.Service.ForecastServiceInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -20,6 +25,7 @@ public class ForecastController {
 
     @RequestMapping( method = RequestMethod.GET)
     public Collection<Forecast> getAllForecasts(){
+        Logging.logger.debug("GET ALL FORECASTS");
         return forecastServiceInterface.getAllForecasts();
     }
 
