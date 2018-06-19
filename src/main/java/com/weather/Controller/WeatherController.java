@@ -24,7 +24,7 @@ public class WeatherController {
     @RequestMapping( method = RequestMethod.GET)
     public String getWeather(String city) throws IOException {
         WeatherService service = new WeatherService();
-        city = "Warszawa"; // przykładowo
+        city = "Warszawa"; // przykładowo test
         WeatherObject weatherObject = service.getActualWeather(city);
         return weatherObject.toString();
     }
