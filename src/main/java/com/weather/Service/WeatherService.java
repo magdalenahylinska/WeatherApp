@@ -17,9 +17,11 @@ import java.util.Collection;
 public class WeatherService  {
 
     @Autowired
+    public WeatherService()
+    {}
 
-    public WeatherObject getActualWeather() throws IOException {
-        JSONObject json = HttpClient.sendRequest(owmApiConfig.getUrl(), owmApiConfig.getKey());
+    public WeatherObject getActualWeather(String city) throws IOException {
+        JSONObject json = HttpClient.sendRequest(owmApiConfig.getUrl(), city, owmApiConfig.getKey());
         WeatherObject weatherObject = this.JSONToWeatherObject(json);
         return weatherObject;
     }

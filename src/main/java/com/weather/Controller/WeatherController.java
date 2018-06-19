@@ -22,9 +22,10 @@ public class WeatherController {
 
 
     @RequestMapping( method = RequestMethod.GET)
-    public String getWeather() throws IOException {
+    public String getWeather(String city) throws IOException {
         WeatherService service = new WeatherService();
-        WeatherObject weatherObject = service.getActualWeather();
+        city = "Warszawa"; // przykładowo
+        WeatherObject weatherObject = service.getActualWeather(city);
         return weatherObject.toString();
     }
 }

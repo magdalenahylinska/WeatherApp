@@ -14,8 +14,8 @@ import java.util.Collection;
 
 
 public class HttpClient {
-    public static JSONObject sendRequest(String url_parameter, String token) throws IOException {
-        String fullUrl = url_parameter + "&APPID=" + token;
+    public static JSONObject sendRequest(String url_parameter, String city_parameter, String token) throws IOException {
+        String fullUrl = url_parameter + city_parameter + "&APPID=" + token;
         URL url = new URL(fullUrl);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
