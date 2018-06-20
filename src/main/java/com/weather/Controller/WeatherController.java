@@ -53,7 +53,14 @@ public class WeatherController {
     @RequestMapping("/weather/{city}")
     public String currentWeather(@RequestParam("city") String city, Model model) throws IOException {
         currentCity=city;
-        String response = getWeather(currentCity);
+        try{
+            String response = getWeather(currentCity);
+        }
+        catch(IOException e){
+            Logging.logger.debug("Search for: " + city + " failed");
+            return "redirect:/";
+        }
+
 
         //model.addAttribute("city", city);
         model.addAttribute("city", currentWeatherObject.getName() );
