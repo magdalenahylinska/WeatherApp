@@ -1,21 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head lang="en">
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
     <title>Spring Boot Example</title>
+
 </head>
 <body>
 
+<div class="jumbotron d-flex align-items-center">
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="centering">
+        <div class="row">
+            <header class="col-md-4 col-md-offset-4">
+                <h2>WeatherApp </h2>
+            </header>
+        </div>
 
-<div class="container">
-   <h2 th:text=${index}> </h2>
+        <div class="row">
+            <section class="col-md-4 col-md-offset-4">
+                <form action="/newCity">
+                    <div class="form-grup">
+                        <label for="city-input">City: </label>
+                        <input type="text" name="city" id="city-input" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+            </section>
+        </div>
+
+    </div>
+    </div>
+
+</div>
 </div>
 
-<section class="search">
-    <form action="/newCity">
-        <input type="text" name="city">
-        <input type="submit">
-    </form>
-</section>
 
 </body>
 </html>

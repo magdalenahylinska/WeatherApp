@@ -2,36 +2,57 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Weather</title>
 </head>
 <body>
 
-<div>
+<div class="jumbotron d-flex align-items-center">
+<div class="container-fluid">
 
 
+<section class="row-fluid">
+    <div class="centering">
+    <div class="col-md-4 col-md-offset-4 centered">
 
-<section class="current_weather">
-    <div>
-        <h2 th:text=${city}></h2>
-        <h2 th:text="${temp}"></h2>
+        <div class="row">
+            <div class="col-md-3 centered vcenter">
+                <h2 th:text=${city}></h2>
+            </div>
+            <div class="col-md-1 centered ">
+                <img th:src=${icon} alt="">
+            </div>
+
+        </div>
+        <h3 th:text="${temp}"></h3>
         <h3 th:text=${description}></h3>
-        <img th:src=${icon} alt="">
-        <table>
+
+        <table class="table table-striped">
             <tbody>
             <tr>
-                <td>temp min</td>
+                <th>temp min:</th>
                 <td th:text="${tempmin}"></td>
             </tr>
             <tr>
-                <td>temp max</td>
+                <th>temp max:</th>
                 <td th:text="${tempmax}"></td>
             </tr>
             <tr>
-                <td>humidity</td>
+                <th>humidity:</th>
                 <td th:text="${humidity}"></td>
             </tr>
             <tr>
-                <td>wind</td>
+                <th>pressure:</th>
+                <td th:text="${pressure}"></td>
+            </tr>
+            <tr>
+                <th>wind:</th>
                 <td th:text="${wind}"></td>
             </tr>
             </tbody>
@@ -39,9 +60,9 @@
     </div>
 
 
-
+    </div>
 </section>
 </div>
-
+</div>
 </body>
 </html>

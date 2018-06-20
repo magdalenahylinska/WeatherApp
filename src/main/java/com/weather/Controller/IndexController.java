@@ -1,5 +1,6 @@
 package com.weather.Controller;
 
+import com.weather.Logging;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
