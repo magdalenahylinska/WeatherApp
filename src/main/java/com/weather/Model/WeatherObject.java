@@ -2,8 +2,14 @@ package com.weather.Model;
 
 import com.weather.Main;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 public class WeatherObject
 {
+    public WeatherObject() {}
+
     public WeatherObject(String _id, String _dt, Wind _wind, String _cod, String _visibility, String _name, Weather _weather, MainComponent _main)
     {
         this.id = _id;

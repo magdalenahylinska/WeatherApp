@@ -1,7 +1,14 @@
 package com.weather.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Weather
 {
+    public Weather() {}
+
     public Weather(String _id, String _icon, String _description, String _main)
     {
         this.id = _id;
@@ -10,6 +17,8 @@ public class Weather
         this.main = _main;
     }
 
+    @Id
+    @GeneratedValue
     private String id;
 
     private String icon;
