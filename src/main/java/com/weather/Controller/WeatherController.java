@@ -4,6 +4,7 @@ import com.weather.Config.owmApiConfig;
 import com.weather.HttpClient;
 import com.weather.Logging;
 import com.weather.Model.Forecast;
+import com.weather.Model.WeatherDatabaseObject;
 import com.weather.Model.WeatherObject;
 import com.weather.Service.ForecastServiceInterface;
 import com.weather.Service.WeatherService;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.IOException;
 import java.util.Collection;
 @Controller
@@ -47,6 +51,19 @@ public class WeatherController {
         //city = "Warszawa"; // przykładowo test
         Logging.logger.debug("Weather for: " + city);
        currentWeatherObject = service.getActualWeather(city);
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pawlikow");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        WeatherDatabaseObject tmp = new WeatherDatabaseObject(currentWeatherObject);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(tmp);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+        entityManagerFactory.close();
+
         return currentWeatherObject.toString();
     }
 
