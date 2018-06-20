@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+
+
+
+<section class="current_weather">
+    <div>
+        <h2 th:text=${city}></h2>
+        <h2 th:text="${temp}"></h2>
+        <h3 th:text=${description}></h3>
+        <img th:src=${icon} alt="">
+        <table>
+            <tbody>
+            <tr>
+                <td>temp min</td>
+                <td th:text="${tempmin}"></td>
+            </tr>
+            <tr>
+                <td>temp max</td>
+                <td th:text="${tempmax}"></td>
+            </tr>
+            <tr>
+                <td>humidity</td>
+                <td th:text="${humidity}"></td>
+            </tr>
+            <tr>
+                <td>wind</td>
+                <td th:text="${wind}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <title>Spring Boot Example</title>
+</head>
+<body>
+
+
+<div class="container">
+   <h2 th:text=${index}> </h2>
+</div>
+
+<section class="search">
+    <form action="/newCity">
+        <input type="text" name="city">
+        <input type="submit">
+    </form>
+</section>
+
+</body>
+</html>
