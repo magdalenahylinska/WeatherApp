@@ -3,7 +3,9 @@ package com.weather.Service;
 import com.weather.Model.WeatherDatabaseObject;
 import com.weather.Repository.WeatherDatabaseObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class WeatherDatabaseObjectService {
     private WeatherDatabaseObjectRepository weatherRepository;
 

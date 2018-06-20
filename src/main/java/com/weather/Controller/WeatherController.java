@@ -53,9 +53,9 @@ public class WeatherController {
         //city = "Warszawa"; // przykładowo test
         currentWeatherObject = service.getActualWeather(city);
         
-        // WeatherDatabaseObjectService dService = new WeatherDatabaseObjectService();
-       // WeatherDatabaseObject tmp = new WeatherDatabaseObject(currentWeatherObject);
-       // dService.saveWeatherDatabaseObject(tmp);
+         //WeatherDatabaseObjectService dService = new WeatherDatabaseObjectService();
+        //WeatherDatabaseObject tmp = new WeatherDatabaseObject(currentWeatherObject);
+        //dService.saveWeatherDatabaseObject(tmp);
 
         return currentWeatherObject.toString();
     }
