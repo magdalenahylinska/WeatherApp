@@ -3,6 +3,7 @@ package com.weather.Controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -21,8 +22,8 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(value = "/newCity")
-    public RedirectView newCity(@RequestParam("city") String city, HttpServletRequest request, HttpServletResponse response, Model model) {
+    @RequestMapping(value = "/city", method = RequestMethod.GET)
+    public RedirectView newCity(@RequestParam("city") String city, Model model) {
         model.addAttribute("city", city);
         RedirectView rv = new RedirectView();
         rv.setContextRelative(true);
