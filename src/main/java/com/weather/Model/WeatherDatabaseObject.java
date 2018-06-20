@@ -2,6 +2,7 @@ package com.weather.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -25,8 +26,8 @@ public class WeatherDatabaseObject {
     }
 
     @Id
-    @GeneratedValue
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String dt;
     private String windSpeed;
@@ -42,11 +43,11 @@ public class WeatherDatabaseObject {
     private String mainTempMin;
     private String temp;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

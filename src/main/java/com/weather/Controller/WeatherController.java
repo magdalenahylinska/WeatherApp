@@ -57,6 +57,18 @@ public class WeatherController {
         //WeatherDatabaseObject tmp = new WeatherDatabaseObject(currentWeatherObject);
         //dService.saveWeatherDatabaseObject(tmp);
 
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pawlikow");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        WeatherDatabaseObject tmp = new WeatherDatabaseObject(currentWeatherObject);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(tmp);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+        entityManagerFactory.close();
+
         return currentWeatherObject.toString();
     }
 
