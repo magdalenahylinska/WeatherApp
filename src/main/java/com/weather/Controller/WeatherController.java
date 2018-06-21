@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.io.IOException;
-import java.util.Collection;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 @Controller
 
 public class WeatherController {
@@ -52,18 +55,6 @@ public class WeatherController {
         Logging.logger.debug("Weather for: " + city);
        currentWeatherObject = service.getActualWeather(city);
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pawlikow");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        WeatherDatabaseObject tmp = new WeatherDatabaseObject(currentWeatherObject);
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(tmp);
-        entityManager.getTransaction().commit();
-
-        entityManager.close();
-        entityManagerFactory.close();
-
         return currentWeatherObject.toString();
     }
 
@@ -78,6 +69,21 @@ public class WeatherController {
             return "redirect:/";
         }
 
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pawlikow");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        WeatherDatabaseObject tmp = new WeatherDatabaseObject(currentWeatherObject);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(tmp);
+        entityManager.getTransaction().commit();
+
+        TypedQuery<WeatherDatabaseObject> query = entityManager.createQuery(
+                "select e from WeatherDatabaseObject AS e where e.name = '" + currentWeatherObject.getName() + "'", WeatherDatabaseObject.class);
+        List<WeatherDatabaseObject> weatherHistory = query.getResultList();
+
+        entityManager.close();
+        entityManagerFactory.close();
 
         //model.addAttribute("city", city);
         model.addAttribute("city", currentWeatherObject.getName() );
@@ -90,12 +96,34 @@ public class WeatherController {
         model.addAttribute("wind", new String(currentWeatherObject.getWind().getSpeed() + " m/s"));
         String icon = "http://openweathermap.org/img/w/" + currentWeatherObject.getWeather().getIcon()+".png";
         model.addAttribute("icon", icon);
+        model.addAttribute("history", weatherHistory);
 
+        Long unixSeconds = Long.valueOf(currentWeatherObject.getDt());
+        Date date = new Date(unixSeconds * 1000L);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+        String formattedDate = sdf.format(date);
+
+        model.addAttribute("date", formattedDate);
 
         return "weather";
         //return weatherObject.toString();
     }
-
+//
+//    @ModelAttribute("historysec")
+//    public List<WeatherDatabaseObject> getHistory() {
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pawlikow");
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//
+//        TypedQuery<WeatherDatabaseObject> query = entityManager.createQuery(
+//                "select e from WeatherDatabaseObject e where e.name = " + currentWeatherObject.getName(), WeatherDatabaseObject.class);
+//        List<WeatherDatabaseObject> weatherHistory = query.getResultList();
+//
+//        entityManager.close();
+//        entityManagerFactory.close();
+//
+//        return weatherHistory;
+//    }
 
 }
 
