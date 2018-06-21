@@ -43,6 +43,11 @@ public class WeatherDatabaseObject {
     private String mainTempMin;
     private String temp;
 
+    public void print() {
+        System.out.println("ID: " + id + " temp: " + temp + " tempMin: " + mainTempMin + " tempMax: " + mainTempMax + " humidity: " + mainHumidity
+        + " pressure: " + mainPressure + " wind: " + windSpeed + " date: " + dt);
+    }
+
     public long getId() {
         return id;
     }

@@ -20,8 +20,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 
@@ -81,22 +83,37 @@ public class WeatherController {
         TypedQuery<WeatherDatabaseObject> query = entityManager.createQuery(
                 "select e from WeatherDatabaseObject AS e where e.name = '" + currentWeatherObject.getName() + "'", WeatherDatabaseObject.class);
         List<WeatherDatabaseObject> weatherHistory = query.getResultList();
+        Collection<WeatherDatabaseObject> uniqueWeatherHistory = weatherHistory.stream()
+                .<Map<String, WeatherDatabaseObject>> collect(HashMap::new,(m,e)->m.put(e.getDt(), e), Map::putAll).values();
+
+        System.out.println();
+        for(WeatherDatabaseObject item : uniqueWeatherHistory) {
+            item.print();
+        }
+        System.out.println();
 
         entityManager.close();
         entityManagerFactory.close();
 
+        double temp = Math.round((Double.valueOf(currentWeatherObject.getMain().getTemp()) - 273.15) * 100.0) / 100.0;
+        double tempMax = Double.valueOf(currentWeatherObject.getMain().getTemp_max()) - 273.15;
+        double tempMin = Double.valueOf(currentWeatherObject.getMain().getTemp_min()) - 273.15;
+        String sTempMax = Double.toString(tempMax);
+        String sTempMin = Double.toString(tempMin);
+        String sTemp = Double.toString(temp);
+
         //model.addAttribute("city", city);
         model.addAttribute("city", currentWeatherObject.getName() );
         model.addAttribute("description", currentWeatherObject.getWeather().getDescription() );
-        model.addAttribute("temp", currentWeatherObject.getMain().getTemp() );
-        model.addAttribute("tempmin", currentWeatherObject.getMain().getTemp_min() );
-        model.addAttribute("tempmax", currentWeatherObject.getMain().getTemp_max() );
+        model.addAttribute("temp", sTemp);
+        model.addAttribute("tempmin", sTempMin);
+        model.addAttribute("tempmax", sTempMax);
         model.addAttribute("humidity", new String(currentWeatherObject.getMain().getHumidity()+" %") );
         model.addAttribute("pressure", new String(currentWeatherObject.getMain().getPressure()+ " hpa") );
         model.addAttribute("wind", new String(currentWeatherObject.getWind().getSpeed() + " m/s"));
         String icon = "http://openweathermap.org/img/w/" + currentWeatherObject.getWeather().getIcon()+".png";
         model.addAttribute("icon", icon);
-        model.addAttribute("history", weatherHistory);
+        //model.addAttribute("history", uniqueWeatherHistory);
 
         Long unixSeconds = Long.valueOf(currentWeatherObject.getDt());
         Date date = new Date(unixSeconds * 1000L);
