@@ -41,12 +41,14 @@ public class WeatherService  {
                 Double.toString(json.getJSONObject("main").getDouble("temp_min")),
                 Double.toString(json.getJSONObject("main").getDouble("temp"))
         );
+
         WeatherObject weatherObject = new WeatherObject(
                 Integer.toString(json.getInt("id")),
                 Integer.toString(json.getInt("dt")),
                 windComponent,
                 Integer.toString(json.getInt("cod")),
-                Integer.toString(json.getInt("visibility")),
+                "0",
+                //Integer.toString(json.getInt("visibility")),
                 json.getString("name"),
                 weatherComponent,
                 mainComponent

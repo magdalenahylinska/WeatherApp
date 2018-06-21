@@ -96,8 +96,8 @@ public class WeatherController {
         entityManagerFactory.close();
 
         double temp = Math.round((Double.valueOf(currentWeatherObject.getMain().getTemp()) - 273.15) * 100.0) / 100.0;
-        double tempMax = Double.valueOf(currentWeatherObject.getMain().getTemp_max()) - 273.15;
-        double tempMin = Double.valueOf(currentWeatherObject.getMain().getTemp_min()) - 273.15;
+        double tempMax = Math.round((Double.valueOf(currentWeatherObject.getMain().getTemp_max()) - 273.15) * 100.0) / 100.0;
+        double tempMin = Math.round((Double.valueOf(currentWeatherObject.getMain().getTemp_min()) - 273.15) * 100.0) / 100.0;
         String sTempMax = Double.toString(tempMax);
         String sTempMin = Double.toString(tempMin);
         String sTemp = Double.toString(temp);
